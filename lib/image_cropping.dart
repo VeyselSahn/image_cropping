@@ -78,6 +78,7 @@ class ImageCropping {
           makeDarkerOutside: makeDarkerOutside,
           imageEdgeInsets: imageEdgeInsets,
           outputImageFormat: outputImageFormat,
+          isRotateIconVisible: false,
         ),
       ),
     );
@@ -87,6 +88,8 @@ class ImageCropping {
 class ImageCroppingScreen extends StatefulWidget {
   /// context is use to get height & width of screen and pop this screen.
   final BuildContext _context;
+
+  bool? isRotateIconVisible;
 
   /// This property contains ImageRatio value. You can set the initialized a  spect ratio when starting the cropper by passing a value of ImageRatio. default value is `ImageRatio.FREE`
   final CropAspectRatio? selectedImageRatio;
@@ -158,6 +161,7 @@ class ImageCroppingScreen extends StatefulWidget {
       this._colorForWhiteSpace,
       {this.outputImageFormat = OutputImageFormat.jpg,
       required this.selectedImageRatio,
+      this.isRotateIconVisible,
       required this.visibleOtherAspectRatios,
       required this.squareBorderWidth,
       required this.customAspectRatios,
@@ -219,6 +223,7 @@ class _ImageCroppingScreenState extends State<ImageCroppingScreen> {
                           imageLoadingFinished: widget._onImageEndLoading,
                           squareCircleSize: widget.squareCircleSize,
                           state: state,
+                          isRotateIconVisible: widget.isRotateIconVisible,
                         ),
                         CroppingImageView(
                           state: state,

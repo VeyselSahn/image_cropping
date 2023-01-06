@@ -29,12 +29,15 @@ class CroppingButton extends StatefulWidget {
 
   final OutputImageFormat outputImageFormat;
 
-  const CroppingButton({
+  bool? isRotateIconVisible = true;
+
+  CroppingButton({
     required this.onImageDoneListener,
     required this.imageBytes,
     required this.context,
     required this.imageProcess,
     this.state,
+    this.isRotateIconVisible,
     this.headerMenuSize,
     this.colorForWhiteSpace,
     this.squareCircleSize,
@@ -55,31 +58,35 @@ class _CroppingButtonState extends State<CroppingButton> {
     return Row(
       key: cropMenuGlobalKey,
       mainAxisAlignment:
-          (kIsWeb) ? MainAxisAlignment.end : MainAxisAlignment.spaceAround,
+          (kIsWeb) ? MainAxisAlignment.end : MainAxisAlignment.spaceBetween,
       children: [
         /// this [appIconButton] icon for rotate the image on left side.
-        AppButton(
-          icon: Icons.rotate_left,
-          background: Colors.transparent,
-          iconColor: Colors.grey.shade800,
-          onPress: () async {
-            imageGlobalKey = GlobalKey();
-            changeImageRotation(ImageRotation.LEFT, widget.state);
-          },
-          size: widget.headerMenuSize ?? 30.0,
-        ),
+        widget.isRotateIconVisible!
+            ? AppButton(
+                icon: Icons.rotate_left,
+                background: Colors.transparent,
+                iconColor: Colors.grey.shade800,
+                onPress: () async {
+                  imageGlobalKey = GlobalKey();
+                  changeImageRotation(ImageRotation.LEFT, widget.state);
+                },
+                size: widget.headerMenuSize ?? 30.0,
+              )
+            : SizedBox(),
 
         /// this [appIconButton] icon for rotate the image on right side.
-        AppButton(
-          icon: Icons.rotate_right,
-          background: Colors.transparent,
-          iconColor: Colors.grey.shade800,
-          onPress: () async {
-            imageGlobalKey = GlobalKey();
-            changeImageRotation(ImageRotation.RIGHT, widget.state);
-          },
-          size: widget.headerMenuSize ?? 30.0,
-        ),
+        widget.isRotateIconVisible!
+            ? AppButton(
+                icon: Icons.rotate_right,
+                background: Colors.transparent,
+                iconColor: Colors.grey.shade800,
+                onPress: () async {
+                  imageGlobalKey = GlobalKey();
+                  changeImageRotation(ImageRotation.RIGHT, widget.state);
+                },
+                size: widget.headerMenuSize ?? 30.0,
+              )
+            : SizedBox(),
 
         /// this [appIconButton] icon for close the cropping screen.
         AppButton(
